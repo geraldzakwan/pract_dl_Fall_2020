@@ -1,0 +1,1706 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{COMS6998\_HW1\_gd2551\_Geraldi Dzakwan}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{problem-1---linear-separability}{%
+\subsection{Problem 1 - Linear
+Separability}\label{problem-1---linear-separability}}
+
+    \hypertarget{answer-1.1}{%
+\subsubsection{Answer 1.1}\label{answer-1.1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seaborn\PYZhy{}whitegrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{x\PYZus{}class\PYZus{}1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+        \PY{n}{y\PYZus{}class\PYZus{}1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{x\PYZus{}class\PYZus{}2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+        \PY{n}{y\PYZus{}class\PYZus{}2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}class\PYZus{}1}\PY{p}{,} \PY{n}{y\PYZus{}class\PYZus{}1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Class 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}class\PYZus{}2}\PY{p}{,} \PY{n}{y\PYZus{}class\PYZus{}2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Class 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2D Scatter Plot for points (x1, x2) in Class 1 (Green) and Class 2 (Blue)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Let the first set of points belongs to Class 1 and the other set belongs
+to Class 2.
+
+Green points denote Class 1 while Blue Points denote Class 2. \(x_1\) is
+the horizontal dimension while \(x_2\) is the vertical one.
+
+We can see from the plot above that the dataset
+\(\text{IS NOT LINEARLY SEPARABLE}\) using any linear
+function/classifier, given only two features \$ x\_1\$ and \(x_2\)
+(without further transformation into a higher space).
+
+    \hypertarget{answer-1.2}{%
+\subsubsection{Answer 1.2}\label{answer-1.2}}
+
+    Looking at the points from Class 1 and Class 2, we could see that: 1.
+\(x_1\) and \(x_2\) in Class 1 are of the same sign 2. \(x_1\) and
+\(x_2\) in Class 2 are of the opposite sign
+
+Thus, we could propose some \(z\) such as: \[{z = x_1 * x_2}\]
+
+This is linearly separable because Class 1 will all have positive values
+of \(z\) while Class 2 will all have negative values of \(z\).
+
+    \hypertarget{answer-1.3}{%
+\subsubsection{Answer 1.3}\label{answer-1.3}}
+
+    Suppose we have a 1D plane which plots \(z\) for Class 1 and Class 2.
+Green lines denote Class 1 while Blue Points denote Class 2.
+
+The separating hyperplane (or point, because this is 1D) is simply
+\(z=c\), where \(c\) is any constant satisfying \(-1 < c < 1\). I pick
+\(c=0\), which is denoted by the thick and short red line in the plot.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{z\PYZus{}class\PYZus{}1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{multiply}\PY{p}{(}\PY{n}{x\PYZus{}class\PYZus{}1}\PY{p}{,} \PY{n}{y\PYZus{}class\PYZus{}1}\PY{p}{)}
+        \PY{n}{z\PYZus{}class\PYZus{}2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{multiply}\PY{p}{(}\PY{n}{x\PYZus{}class\PYZus{}2}\PY{p}{,} \PY{n}{y\PYZus{}class\PYZus{}2}\PY{p}{)}
+        
+        \PY{n}{z\PYZus{}class\PYZus{}1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{repeat}\PY{p}{(}\PY{n}{z\PYZus{}class\PYZus{}1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{z\PYZus{}class\PYZus{}2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{repeat}\PY{p}{(}\PY{n}{z\PYZus{}class\PYZus{}2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{hlines}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{35}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{)}  
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{eventplot}\PY{p}{(}\PY{n}{z\PYZus{}class\PYZus{}1}\PY{p}{,} \PY{n}{orientation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{horizontal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linelengths}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{linewidths}\PY{o}{=}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Class 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{eventplot}\PY{p}{(}\PY{n}{z\PYZus{}class\PYZus{}2}\PY{p}{,} \PY{n}{orientation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{horizontal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linelengths}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{linewidths}\PY{o}{=}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Class 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{eventplot}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{35}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{]}\PY{p}{,} \PY{n}{orientation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{horizontal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linelengths}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{linewidths}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{eventplot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{orientation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{horizontal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linelengths}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{linewidths}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Separating Hyperplane}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1D Plot for points (z) in Class 1 (Green) and Class 2 (Blue)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{answer-for-problem-1.4}{%
+\subsubsection{Answer for Problem 1.4}\label{answer-for-problem-1.4}}
+
+Question 
+$$$$
+Explain the importance of nonlinear transformations in classification problems.
+$$$$
+Answer
+$$$$
+Nonlinear transformations are important to help classifier create
+a decision boundary for dataset that are not linearly separable. For
+example, in scikit-learn, there is a package called Kernel SVM which use
+a Kernel to project the non-linearly separable data in some lower
+dimension to linearly separable data in some higher dimensions so that
+the data points belonging to different classes are allocated to
+different dimensions.
+$$$$
+Reference:
+https://stackabuse.com/implementing-svm-and-kernel-svm-with-pythons-scikit-learn/\#:\textasciitilde:text=Rather\%2C\%20a\%20modified\%20version\%20of,are\%20allocated\%20to\%20different\%20dimensions.
+
+    \hypertarget{problem-2---bias-variance-tradeoff-regularization}{%
+\subsection{Problem 2 - Bias Variance Tradeoff,
+Regularization}\label{problem-2---bias-variance-tradeoff-regularization}}
+
+    \hypertarget{answer-2.1}{%
+\subsubsection{Answer 2.1}\label{answer-2.1}}
+
+    \[ E[MSE] = E[\frac{1}{t} \sum_{i=1}^t(f(x_i) + \epsilon - g(x_i))^2] \]
+
+Introduce terms \(E[g(x_i]\) that will cancel each other:
+\[ E[MSE] = E[\frac{1}{t} \sum_{i=1}^t (f(x_i) + \epsilon - g(x_i) + E[g(x_i)] - E[g(x_i)])^2] \]
+
+Using linearity in expectation:
+\[ E[MSE] = E[\frac{1}{t} \sum_{i=1}^t (f(x_i)-E[g(x_i)])^2 + \frac{1}{t} \sum_{i=1}^t E[\epsilon^2] + \frac{1}{t} \sum_{i=1}^t E[(E[g(x_i)] - g(x_i))^2] + \frac{2}{t} \sum_{i=1}^t E[\epsilon(f(x_i) - E[g(x_i)])] + \frac{2}{t} \sum_{i=1}^t E[\epsilon(E[g(x_i)] - g(x_i))] + \frac{2}{t} \sum_{i=1}^t E[((f(x_i) - E[g(x_i))(E[g(x_i)] - g(x_i))]] \]
+
+Notice that \(E[g(x_i)] = g(x_i)\), so that lefts us with:
+\[ E[MSE] = E[\frac{1}{t} \sum_{i=1}^t (f(x_i)-E[g(x_i)])^2 + \frac{1}{t} \sum_{i=1}^t E[\epsilon^2] + \frac{1}{t} \sum_{i=1}^t E[(E[g(x_i)] - g(x_i))^2]\]
+
+Again, using linearity in expectation:
+\[ E[MSE] = E[\frac{1}{t} \sum_{i=1}^t (f(x_i)-E[g(x_i)])^2] + E[\frac{1}{t} \sum_{i=1}^t E[\epsilon^2]] + E[\frac{1}{t} \sum_{i=1}^t E[(E[g(x_i)] - g(x_i))^2]\]
+
+\[ E[MSE] = \frac{1}{t} \sum_{i=1}^t (f(x_i)-E[g(x_i)])^2 + \frac{1}{t} \sum_{i=1}^t E[\epsilon^2] + \frac{1}{t} \sum_{i=1}^t E[(E[g(x_i)] - g(x_i))^2\]
+
+\[ E[MSE] = \frac{1}{t} \sum_{i=1}^t (f(x_i)-E[g(x_i)])^2 + \frac{1}{t} \sum_{i=1}^t E[(E[g(x_i)] - g(x_i))^2] + \frac{1}{t}(t) E[\epsilon^2]\]
+
+\[ E[MSE] = \frac{1}{t} \sum_{i=1}^t (f(x_i)-E[g(x_i)])^2 + \frac{1}{t} \sum_{i=1}^t E[(E[g(x_i)] - g(x_i))^2] + E[\epsilon^2]\]
+
+Finally: \[ E[MSE] = Bias[g(x)]^2 + Var[g(x)] + Noise \]
+
+where: 
+\begin{itemize}
+    \item [1.] $Bias[g(x)]^2 = \frac{1}{t} \sum_{i=1}^t (f(x_i)-E[g(x_i)])^2$
+    \item [2.] $Var[g(x)] = \frac{1}{t} \sum_{i=1}^t E[(E[g(x_i)] - g(x_i))^2$
+    \item [3.] $Noise = E[\epsilon^2]$
+\end{itemize}
+
+    \hypertarget{answer-2.2}{%
+\subsubsection{Answer 2.2}\label{answer-2.2}}
+
+    The black line plot depicts \(f(x)\) while the red dots (20 in total)
+are the samples drawn from \(y(x)\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{f\PYZus{}x}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{x} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{3}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{x}\PY{p}{)}
+        
+        \PY{n}{x\PYZus{}smooth} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mf}{0.01}\PY{p}{)}
+        \PY{n}{f\PYZus{}x\PYZus{}plot\PYZus{}dots} \PY{o}{=} \PY{n}{f\PYZus{}x}\PY{p}{(}\PY{n}{x\PYZus{}smooth}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{generate\PYZus{}sample\PYZus{}from\PYZus{}y}\PY{p}{(}\PY{n}{x\PYZus{}rand}\PY{p}{,} \PY{n}{use\PYZus{}noise}\PY{p}{)}\PY{p}{:}
+            \PY{n}{y} \PY{o}{=} \PY{n}{f\PYZus{}x}\PY{p}{(}\PY{n}{x\PYZus{}rand}\PY{p}{)}
+            
+            \PY{k}{if} \PY{n}{use\PYZus{}noise}\PY{p}{:}
+                \PY{n}{y} \PY{o}{=} \PY{n}{y} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.3}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x\PYZus{}rand}\PY{p}{)}\PY{p}{)}
+                
+            \PY{k}{return} \PY{n}{y}
+            
+        \PY{n}{x\PYZus{}rand} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{)}
+        \PY{n}{y\PYZus{}x\PYZus{}plot\PYZus{}dots} \PY{o}{=} \PY{n}{generate\PYZus{}sample\PYZus{}from\PYZus{}y}\PY{p}{(}\PY{n}{x\PYZus{}rand}\PY{p}{,} \PY{k+kc}{True}\PY{p}{)}
+        
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}smooth}\PY{p}{,} \PY{n}{f\PYZus{}x\PYZus{}plot\PYZus{}dots}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f(x)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}rand}\PY{p}{,} \PY{n}{y\PYZus{}x\PYZus{}plot\PYZus{}dots}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mf}{7.5}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y(x)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Smooth Line Plot for f(x): Black Line and Scatter Plot for y(x): Red Dots using 20 random points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{answer-2.3}{%
+\subsubsection{Answer 2.3}\label{answer-2.3}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{PolynomialFeatures}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{pipeline} \PY{k}{import} \PY{n}{make\PYZus{}pipeline}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+        
+        \PY{n}{reshape\PYZus{}x\PYZus{}smooth} \PY{o}{=} \PY{n}{x\PYZus{}smooth}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{n}{g\PYZus{}1} \PY{o}{=} \PY{n}{make\PYZus{}pipeline}\PY{p}{(}\PY{n}{PolynomialFeatures}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{g\PYZus{}1}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{reshape\PYZus{}x\PYZus{}smooth}\PY{p}{,} \PY{n}{f\PYZus{}x}\PY{p}{(}\PY{n}{x\PYZus{}smooth}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{g\PYZus{}3} \PY{o}{=} \PY{n}{make\PYZus{}pipeline}\PY{p}{(}\PY{n}{PolynomialFeatures}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{g\PYZus{}3}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{reshape\PYZus{}x\PYZus{}smooth}\PY{p}{,} \PY{n}{f\PYZus{}x}\PY{p}{(}\PY{n}{x\PYZus{}smooth}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{g\PYZus{}10} \PY{o}{=} \PY{n}{make\PYZus{}pipeline}\PY{p}{(}\PY{n}{PolynomialFeatures}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{g\PYZus{}10}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{reshape\PYZus{}x\PYZus{}smooth}\PY{p}{,} \PY{n}{f\PYZus{}x}\PY{p}{(}\PY{n}{x\PYZus{}smooth}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}smooth}\PY{p}{,} \PY{n}{f\PYZus{}x\PYZus{}plot\PYZus{}dots}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f(x)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}smooth}\PY{p}{,} \PY{n}{g\PYZus{}1}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{reshape\PYZus{}x\PYZus{}smooth}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g1(x)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}smooth}\PY{p}{,} \PY{n}{g\PYZus{}3}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{reshape\PYZus{}x\PYZus{}smooth}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g3(x)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}smooth}\PY{p}{,} \PY{n}{g\PYZus{}10}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{reshape\PYZus{}x\PYZus{}smooth}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g10(x)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot A: Blue depicts g1(x), Green depicts g3(x), Red depicts g10(x) and Black depicts f(x)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}smooth}\PY{p}{,} \PY{n}{f\PYZus{}x\PYZus{}plot\PYZus{}dots}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f(x)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}smooth}\PY{p}{,} \PY{n}{g\PYZus{}1}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{reshape\PYZus{}x\PYZus{}smooth}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g1(x)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}smooth}\PY{p}{,} \PY{n}{g\PYZus{}3}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{reshape\PYZus{}x\PYZus{}smooth}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g3(x)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot B: Blue depicts g1(x), Green depicts g3(x) and Black depicts f(x)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In the first plot, Plot A, we can see that \(g_1(x)\) (blue line) and
+\(g_2(x)\) (green line) are underfitting while \(g_{10}(x)\) (red line)
+is overfitting. \(f(x)\), which is the black line, is fully overlayed by
+\(g_{10}(x)\), the red line.
+
+To make it clearer, I provide Plot B, in which I get ride of
+\(g_{10}(x)\), i.e.~the red line. We can compare that \(g_{10}(x)\)
+resembles \(f(x)\) quiet a lot, indicating overfitting.
+
+    \hypertarget{answer-2.4}{%
+\subsubsection{Answer 2.4}\label{answer-2.4}}
+
+    \hypertarget{function-to-generate-datasets-and-to-simulate-the-training}{%
+\paragraph{Function to Generate Datasets and to Simulate the
+Training}\label{function-to-generate-datasets-and-to-simulate-the-training}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{from} \PY{n+nn}{numpy} \PY{k}{import} \PY{n}{polyfit}\PY{p}{,} \PY{n}{polyval}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}squared\PYZus{}error}
+        
+        \PY{k}{def} \PY{n+nf}{generate\PYZus{}dataset}\PY{p}{(}\PY{n}{n\PYZus{}sample}\PY{p}{,} \PY{n}{x\PYZus{}low}\PY{p}{,} \PY{n}{x\PYZus{}high}\PY{p}{,} \PY{n}{n\PYZus{}dataset}\PY{p}{,} \PY{n}{test\PYZus{}frac}\PY{p}{,} \PY{n}{seed}\PY{p}{)}\PY{p}{:}
+            \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{n}{seed}\PY{p}{)}
+            
+            \PY{n}{x\PYZus{}rand} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{n}{x\PYZus{}low}\PY{p}{,} \PY{n}{x\PYZus{}high}\PY{p}{,} \PY{n}{n\PYZus{}sample}\PY{p}{)}
+            
+            \PY{n}{slice\PYZus{}idx} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{test\PYZus{}frac} \PY{o}{*} \PY{n}{n\PYZus{}sample}\PY{p}{)}
+            
+            \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{x\PYZus{}rand}\PY{p}{[}\PY{p}{:}\PY{n}{slice\PYZus{}idx}\PY{p}{]}
+            \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{x\PYZus{}rand}\PY{p}{[}\PY{n}{slice\PYZus{}idx}\PY{p}{:}\PY{p}{]}
+            
+            \PY{c+c1}{\PYZsh{} y without noise}
+            \PY{n}{y\PYZus{}x\PYZus{}plot\PYZus{}dots} \PY{o}{=} \PY{n}{generate\PYZus{}sample\PYZus{}from\PYZus{}y}\PY{p}{(}\PY{n}{x\PYZus{}rand}\PY{p}{,} \PY{k+kc}{False}\PY{p}{)}
+            \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{y\PYZus{}x\PYZus{}plot\PYZus{}dots}\PY{p}{[}\PY{p}{:}\PY{n}{slice\PYZus{}idx}\PY{p}{]}
+            \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{y\PYZus{}x\PYZus{}plot\PYZus{}dots}\PY{p}{[}\PY{n}{slice\PYZus{}idx}\PY{p}{:}\PY{p}{]}
+        
+            \PY{c+c1}{\PYZsh{} y with noise}
+            \PY{n}{y\PYZus{}train\PYZus{}sets\PYZus{}noise} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{y\PYZus{}test\PYZus{}sets\PYZus{}noise} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            
+            \PY{c+c1}{\PYZsh{} Generate y\PYZus{}train and y\PYZus{}test}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{n\PYZus{}dataset}\PY{p}{)}\PY{p}{:}
+                \PY{n}{y\PYZus{}x\PYZus{}plot\PYZus{}dots\PYZus{}noise} \PY{o}{=} \PY{n}{generate\PYZus{}sample\PYZus{}from\PYZus{}y}\PY{p}{(}\PY{n}{x\PYZus{}rand}\PY{p}{,} \PY{k+kc}{True}\PY{p}{)}
+        
+                \PY{n}{y\PYZus{}train\PYZus{}sets\PYZus{}noise}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y\PYZus{}x\PYZus{}plot\PYZus{}dots\PYZus{}noise}\PY{p}{[}\PY{p}{:}\PY{n}{slice\PYZus{}idx}\PY{p}{]}\PY{p}{)}    
+                \PY{n}{y\PYZus{}test\PYZus{}sets\PYZus{}noise}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y\PYZus{}x\PYZus{}plot\PYZus{}dots\PYZus{}noise}\PY{p}{[}\PY{n}{slice\PYZus{}idx}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+                
+            \PY{k}{return} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}sets\PYZus{}noise}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}sets\PYZus{}noise}
+        
+        \PY{k}{def} \PY{n+nf}{compute\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{:}
+            \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+            \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{y\PYZus{}pred}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+            
+            \PY{k}{assert} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{shape} \PY{o}{==} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{p}{)}
+            \PY{k}{assert} \PY{n}{y\PYZus{}pred}\PY{o}{.}\PY{n}{shape} \PY{o}{==} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{p}{)}
+            
+            \PY{k}{return} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{simulate}\PY{p}{(}\PY{n}{degree\PYZus{}low}\PY{p}{,} \PY{n}{degree\PYZus{}high}\PY{p}{,} \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}sets\PYZus{}noise}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}sets\PYZus{}noise}\PY{p}{)}\PY{p}{:}
+            \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} polyfit needs 1D vector}
+            
+            \PY{n}{y\PYZus{}preds\PYZus{}train} \PY{o}{=} \PY{p}{[}\PY{p}{]} \PY{c+c1}{\PYZsh{} (15, 100, 40, 1) }
+            \PY{n}{y\PYZus{}preds\PYZus{}test} \PY{o}{=} \PY{p}{[}\PY{p}{]} \PY{c+c1}{\PYZsh{} (15, 100, 10, 1)}
+            \PY{n}{test\PYZus{}err} \PY{o}{=} \PY{p}{[}\PY{p}{]} \PY{c+c1}{\PYZsh{} (15, 100, 10, 1)}
+            
+            \PY{n}{models} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            
+            \PY{k}{for} \PY{n}{degree} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{degree\PYZus{}low} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{degree\PYZus{}high}\PY{p}{)}\PY{p}{:}
+                \PY{n}{y\PYZus{}preds\PYZus{}train}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+                \PY{n}{y\PYZus{}preds\PYZus{}test}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+                \PY{n}{test\PYZus{}err}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+            
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}train\PYZus{}sets\PYZus{}noise}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{y\PYZus{}train\PYZus{}noise} \PY{o}{=} \PY{n}{y\PYZus{}train\PYZus{}sets\PYZus{}noise}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                \PY{n}{y\PYZus{}test\PYZus{}noise} \PY{o}{=} \PY{n}{y\PYZus{}test\PYZus{}sets\PYZus{}noise}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+        
+                \PY{k}{for} \PY{n}{degree} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{degree\PYZus{}low} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{degree\PYZus{}high}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{model} \PY{o}{=} \PY{k+kc}{None}
+                    \PY{c+c1}{\PYZsh{} IMPORTANT: Increment the degree by 1 shere so it depicts the real degree}
+                    \PY{c+c1}{\PYZsh{} Funny story: I spend almost one hour debugging this offset bug}
+                    \PY{n}{model} \PY{o}{=} \PY{n}{polyfit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}noise}\PY{p}{,} \PY{n}{degree} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+                    \PY{n}{models}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{model}\PY{p}{)}
+                    
+                    \PY{n}{y\PYZus{}pred\PYZus{}test} \PY{o}{=} \PY{n}{polyval}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{)}
+                    \PY{n}{y\PYZus{}preds\PYZus{}test}\PY{p}{[}\PY{n}{degree}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y\PYZus{}pred\PYZus{}test}\PY{p}{)}
+        
+                    \PY{c+c1}{\PYZsh{} IMPORTANT: For error, use y WITH NOISE}
+                    \PY{n}{test\PYZus{}err}\PY{p}{[}\PY{n}{degree}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{compute\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test\PYZus{}noise}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}test}\PY{p}{)}\PY{p}{)}
+                    
+            \PY{k}{return} \PY{n}{models}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{y\PYZus{}preds\PYZus{}test}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{test\PYZus{}err}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{function-to-compute-bias-variance-and-error}{%
+\paragraph{Function to Compute Bias, Variance and
+Error}\label{function-to-compute-bias-variance-and-error}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{compute\PYZus{}squared\PYZus{}bias}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}preds\PYZus{}test}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} E[g(x)]}
+            \PY{n}{avg\PYZus{}y\PYZus{}preds\PYZus{}test} \PY{o}{=} \PY{n}{y\PYZus{}preds\PYZus{}test}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} Sanity check}
+            \PY{k}{assert} \PY{n}{avg\PYZus{}y\PYZus{}preds\PYZus{}test}\PY{o}{.}\PY{n}{shape} \PY{o}{==} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} (E[g(x)] \PYZhy{} f(x))**2}
+            \PY{c+c1}{\PYZsh{} IMPORTANT: Use y WITHOUT NOISE}
+            \PY{c+c1}{\PYZsh{} IMPORTANT: FLATTEN the average so it becomes (10, )}
+            \PY{k}{return} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{avg\PYZus{}y\PYZus{}preds\PYZus{}test}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{compute\PYZus{}variance}\PY{p}{(}\PY{n}{y\PYZus{}preds\PYZus{}test}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} IMPORTANT: Remove third dimension, (100, 10, 1) \PYZhy{}\PYZgt{} (100, 10)}
+            \PY{n}{rows}\PY{p}{,} \PY{n}{cols} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}preds\PYZus{}test}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}preds\PYZus{}test}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+            \PY{n}{y\PYZus{}preds\PYZus{}test} \PY{o}{=} \PY{n}{y\PYZus{}preds\PYZus{}test}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{rows}\PY{p}{,} \PY{n}{cols}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} E[g(x)]}
+            \PY{n}{avg\PYZus{}y\PYZus{}preds\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{y\PYZus{}preds\PYZus{}test}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} IMPORTANT: Tile to make duplicates, (10, ) \PYZhy{}\PYZgt{} (100, 10)}
+            \PY{n}{avg\PYZus{}y\PYZus{}preds\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{tile}\PY{p}{(}\PY{n}{avg\PYZus{}y\PYZus{}preds\PYZus{}test}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} (g(x) \PYZhy{} E[g(x)])**2}
+            \PY{k}{return} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}preds\PYZus{}test}\PY{p}{,} \PY{n}{avg\PYZus{}y\PYZus{}preds\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{main-routine-to-get-the-stats-for-each-polynomial-degree}{%
+\paragraph{Main Routine to Get the Stats for Each Polynomial
+Degree}\label{main-routine-to-get-the-stats-for-each-polynomial-degree}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}sets\PYZus{}noise}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}sets\PYZus{}noise} \PY{o}{=} \PY{n}{generate\PYZus{}dataset}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mf}{0.8}\PY{p}{,} \PY{l+m+mi}{82}\PY{p}{)}
+        
+        \PY{n}{models}\PY{p}{,} \PY{n}{y\PYZus{}preds\PYZus{}test}\PY{p}{,} \PY{n}{test\PYZus{}err} \PY{o}{=} \PY{n}{simulate}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}sets\PYZus{}noise}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}sets\PYZus{}noise}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Sanity check}
+        \PY{k}{assert} \PY{n}{y\PYZus{}preds\PYZus{}test}\PY{o}{.}\PY{n}{shape} \PY{o}{==} \PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{k}{assert} \PY{n}{test\PYZus{}err}\PY{o}{.}\PY{n}{shape} \PY{o}{==} \PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+        
+        \PY{n}{avg\PYZus{}squared\PYZus{}biases} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{avg\PYZus{}test\PYZus{}errs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{variances} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        
+        \PY{k}{for} \PY{n}{degree} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{)}\PY{p}{:}
+            \PY{n}{curr\PYZus{}y\PYZus{}pred\PYZus{}test} \PY{o}{=} \PY{n}{y\PYZus{}preds\PYZus{}test}\PY{p}{[}\PY{n}{degree}\PY{p}{]}
+            
+            \PY{n}{avg\PYZus{}squared\PYZus{}biases}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{compute\PYZus{}squared\PYZus{}bias}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{curr\PYZus{}y\PYZus{}pred\PYZus{}test}\PY{p}{)}\PY{p}{)}
+            \PY{n}{avg\PYZus{}test\PYZus{}errs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{test\PYZus{}err}\PY{p}{[}\PY{n}{degree}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{variances}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{compute\PYZus{}variance}\PY{p}{(}\PY{n}{curr\PYZus{}y\PYZus{}pred\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{plot-testing-error-bias-and-variance-against-model-complexity}{%
+\paragraph{Plot Testing Error, Bias and Variance against Model
+Complexity}\label{plot-testing-error-bias-and-variance-against-model-complexity}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{x\PYZus{}plots} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{y\PYZus{}plots} \PY{o}{=} \PY{n}{avg\PYZus{}squared\PYZus{}biases}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}plots}\PY{p}{,} \PY{n}{y\PYZus{}plots}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Squared Bias}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{x\PYZus{}plots} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{y\PYZus{}plots} \PY{o}{=} \PY{n}{avg\PYZus{}test\PYZus{}errs}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}plots}\PY{p}{,} \PY{n}{y\PYZus{}plots}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{x\PYZus{}plots} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{y\PYZus{}plots} \PY{o}{=} \PY{n}{variances}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}plots}\PY{p}{,} \PY{n}{y\PYZus{}plots}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Variances}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Polynomial Degree}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}         
+        
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Testing Error Relationship to Bias and Variance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{identifying-the-best-model}{%
+\paragraph{Identifying the Best
+Model}\label{identifying-the-best-model}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{best\PYZus{}performing\PYZus{}degree} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmin}\PY{p}{(}\PY{n}{avg\PYZus{}test\PYZus{}errs}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}
+         \PY{n}{best\PYZus{}performing\PYZus{}degree}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} 8
+\end{Verbatim}
+            
+    The best performing model is the one with the lowest testing error,
+which is Polynomial Degree 8. We can also see that from the graph that
+this model seems to have a good balance between its bias and variance at
+Polynomial Degree 8.
+
+    \hypertarget{answer-2.5}{%
+\subsubsection{Answer 2.5}\label{answer-2.5}}
+
+    \hypertarget{ridge-regression-is-used-to-apply-l2-regularization}{%
+\paragraph{Ridge Regression is Used to Apply L2
+Regularization}\label{ridge-regression-is-used-to-apply-l2-regularization}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{def} \PY{n+nf}{warn}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+             \PY{k}{pass}
+         
+         \PY{k+kn}{import} \PY{n+nn}{warnings}
+         \PY{n}{warnings}\PY{o}{.}\PY{n}{warn} \PY{o}{=} \PY{n}{warn}
+         
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{Ridge}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{PolynomialFeatures}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{pipeline} \PY{k}{import} \PY{n}{make\PYZus{}pipeline}
+         
+         \PY{n}{degree} \PY{o}{=} \PY{l+m+mi}{10}
+         
+         \PY{c+c1}{\PYZsh{} Polynomial Degree 10 model from 2.4}
+         \PY{n}{model\PYZus{}10} \PY{o}{=} \PY{n}{models}\PY{p}{[}\PY{n}{degree} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} 
+         
+         \PY{c+c1}{\PYZsh{} Ridge Regression, e.g. LinearRegression with L2 regularization}
+         \PY{c+c1}{\PYZsh{} Use alpha=1.0, meaning we optimize bias and norm equally}
+         \PY{n}{model\PYZus{}10\PYZus{}L2} \PY{o}{=} \PY{n}{make\PYZus{}pipeline}\PY{p}{(}\PY{n}{PolynomialFeatures}\PY{p}{(}\PY{n}{degree}\PY{p}{)}\PY{p}{,} \PY{n}{Ridge}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{y\PYZus{}preds\PYZus{}test\PYZus{}L2} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{test\PYZus{}err\PYZus{}L2} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Simulation Loop}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}train\PYZus{}sets\PYZus{}noise}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{y\PYZus{}train\PYZus{}noise} \PY{o}{=} \PY{n}{y\PYZus{}train\PYZus{}sets\PYZus{}noise}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{y\PYZus{}test\PYZus{}noise} \PY{o}{=} \PY{n}{y\PYZus{}test\PYZus{}sets\PYZus{}noise}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{n}{model\PYZus{}10\PYZus{}L2}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}noise}\PY{p}{)}
+         
+             \PY{n}{y\PYZus{}pred\PYZus{}test} \PY{o}{=} \PY{n}{model\PYZus{}10\PYZus{}L2}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+             \PY{n}{y\PYZus{}preds\PYZus{}test\PYZus{}L2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y\PYZus{}pred\PYZus{}test}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} IMPORTANT: For error, use y WITH NOISE}
+             \PY{n}{test\PYZus{}err\PYZus{}L2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{compute\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test\PYZus{}noise}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}test}\PY{p}{)}\PY{p}{)}
+             
+         \PY{n}{y\PYZus{}preds\PYZus{}test\PYZus{}L2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{y\PYZus{}preds\PYZus{}test\PYZus{}L2}\PY{p}{)}
+         \PY{n}{test\PYZus{}err\PYZus{}L2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{test\PYZus{}err\PYZus{}L2}\PY{p}{)}
+         
+         \PY{n}{avg\PYZus{}squared\PYZus{}bias\PYZus{}L2} \PY{o}{=} \PY{n}{compute\PYZus{}squared\PYZus{}bias}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}preds\PYZus{}test\PYZus{}L2}\PY{p}{)}
+         \PY{n}{avg\PYZus{}test\PYZus{}err\PYZus{}L2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{test\PYZus{}err\PYZus{}L2}\PY{p}{)}
+         \PY{n}{variance\PYZus{}L2} \PY{o}{=} \PY{n}{compute\PYZus{}variance}\PY{p}{(}\PY{n}{y\PYZus{}preds\PYZus{}test\PYZus{}L2}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Model without Regularization:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Squared Bias: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{avg\PYZus{}squared\PYZus{}biases}\PY{p}{[}\PY{n}{degree}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{avg\PYZus{}test\PYZus{}errs}\PY{p}{[}\PY{n}{degree}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Variance: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{variances}\PY{p}{[}\PY{n}{degree}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Model with L2 Regularization:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Squared Bias: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{avg\PYZus{}squared\PYZus{}bias\PYZus{}L2}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{avg\PYZus{}test\PYZus{}err\PYZus{}L2}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Variance: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{variance\PYZus{}L2}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model without Regularization:
+Squared Bias: 0.00032542725998055356
+MSE: 0.11739956779615142
+Variance: 0.025728605869716047
+-----------------------------
+-----------------------------
+Model with L2 Regularization:
+Squared Bias: 0.06944578350660215
+MSE: 0.1744139448742389
+Variance: 0.01537534620983641
+-----------------------------
+-----------------------------
+
+    \end{Verbatim}
+
+    \hypertarget{explanation-for-bias-and-mse-comparison}{%
+\paragraph{Explanation for Bias and MSE
+Comparison}\label{explanation-for-bias-and-mse-comparison}}
+$$$$
+From the report above, we could see:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The regularized model have a significantly higher bias (\(0.0694\) vs
+  \(0.0003\))
+\item
+  The regularized model also has a higher MSE (\(0.1744\) vs \(0.1174\))
+\item
+  However, the regularized model has a lower variance, although not
+  significant (\(0.0154\) vs \(0.0257\))
+\end{enumerate}
+
+The explanations are: 
+\begin{itemize}
+    \item [1.] The regularized model has lower variance
+because it takes into account the solution norm, L2 to be specific, into
+its loss function. Its loss function is roughly:
+\(||y - Xw||^2_2 + alpha * ||w||^2_2\) where it is an addition of bias
+(like normal linear regression) and the L2 norm of the solution \(w\) to
+some extent of alpha. I use alpha equals 1 that means we optimize both
+terms equally. Thus, not only the regularized model minimizes the bias,
+but it tries to also minimize the L2 norm at the same time, resulting in
+a simpler model with lower variance.
+    \item [2.] The consequences of having to
+minimize both bias and L2 norms are that we might not get the solution
+with optimal (minimum) bias. Hence, with L2 regularization, we
+frequently have lower bias and MSE.
+\end{itemize}
+
+    \hypertarget{problem-3}{%
+\subsection{Problem 3}\label{problem-3}}
+
+    \hypertarget{answer-3.1}{%
+\subsubsection{Answer 3.1}\label{answer-3.1}}
+
+    Two datasets picked:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  energy-efficiency (https://www.openml.org/d/1472)
+\item
+  optdigits (https://www.openml.org/d/28)
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         
+         \PY{n}{d1\PYZus{}path} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/energy\PYZhy{}efficiency.csv}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{d1\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Energy Efficiency}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{n}{t\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{d1\PYZus{}path}\PY{p}{)}
+         \PY{n}{t\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}      V1     V2     V3      V4   V5  V6   V7  V8  y1  y2
+         0  0.98  514.5  294.0  110.25  7.0   2  0.0   0   7  11
+         1  0.98  514.5  294.0  110.25  7.0   3  0.0   0   7  11
+         2  0.98  514.5  294.0  110.25  7.0   4  0.0   0   7  11
+         3  0.98  514.5  294.0  110.25  7.0   5  0.0   0   7  11
+         4  0.90  563.5  318.5  122.50  7.0   2  0.0   0  12  18
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{d2\PYZus{}path} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/optdigits.csv}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{d2\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Opt Digits}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{n}{i\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{d2\PYZus{}path}\PY{p}{)}
+         \PY{n}{i\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}    input1  input2  input3  input4  input5  input6  input7  input8  input9  \textbackslash{}
+         0       0       1       6      15      12       1       0       0       0   
+         1       0       0      10      16       6       0       0       0       0   
+         2       0       0       8      15      16      13       0       0       0   
+         3       0       0       0       3      11      16       0       0       0   
+         4       0       0       5      14       4       0       0       0       0   
+         
+            input10  {\ldots}  input56  input57  input58  input59  input60  input61  \textbackslash{}
+         0        7  {\ldots}        0        0        0        6       14        7   
+         1        7  {\ldots}        0        0        0       10       16       15   
+         2        1  {\ldots}        0        0        0        9       14        0   
+         3        0  {\ldots}        0        0        0        0        1       15   
+         4        0  {\ldots}        0        0        0        4       12       14   
+         
+            input62  input63  input64  class  
+         0        1        0        0      0  
+         1        3        0        0      0  
+         2        0        0        0      7  
+         3        2        0        0      4  
+         4        7        0        0      6  
+         
+         [5 rows x 65 columns]
+\end{Verbatim}
+            
+    \hypertarget{function-to-summarize-attributes-from-a-dataset}{%
+\paragraph{Function to Summarize Attributes from a
+Dataset}\label{function-to-summarize-attributes-from-a-dataset}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}attribute\PYZus{}summary}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{class\PYZus{}column}\PY{p}{,} \PY{n}{dname}\PY{p}{)}\PY{p}{:}
+             \PY{n}{df\PYZus{}info} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         
+             \PY{n}{df\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{} excluding label column}
+             \PY{n}{df\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}instances}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+             \PY{n}{df\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}classes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{class\PYZus{}column}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+             \PY{n}{df\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}numerical\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{df\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}categorical\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+             
+             \PY{n}{df\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categorical\PYZus{}indexes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+             \PY{n}{idx} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{df}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{column} \PY{o}{!=} \PY{n}{class\PYZus{}column}\PY{p}{:}
+                     \PY{k}{if} \PY{n+nb}{str}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{.}\PY{n}{dtypes}\PY{p}{)} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                         \PY{n}{df\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}categorical\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}categorical\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{1}
+                         \PY{n}{df\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categorical\PYZus{}indexes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{idx}\PY{p}{)}
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{n}{df\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}numerical\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}numerical\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{1}
+                     
+                     \PY{n}{idx} \PY{o}{=} \PY{n}{idx} \PY{o}{+} \PY{l+m+mi}{1}
+         
+             \PY{c+c1}{\PYZsh{} Some sanity check}
+             \PY{k}{assert} \PY{n}{df\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}numerical\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n}{df\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}categorical\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{df\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Summary of }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ dataset attributes: }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{dname}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of features: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{df\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of instances: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{df\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}instances}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of classes: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{df\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}classes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of numerical features: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{df\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}numerical\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of categorical features: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{df\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}categorical\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{df\PYZus{}info}
+\end{Verbatim}
+
+    \hypertarget{attribute-summary-for-dataset-1}{%
+\paragraph{Attribute Summary for Dataset
+1}\label{attribute-summary-for-dataset-1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{d1\PYZus{}classname} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y1}\PY{l+s+s1}{\PYZsq{}}  
+         
+         \PY{c+c1}{\PYZsh{} Even though y2 contains integer, but it is stated as a nominal variable}
+         \PY{c+c1}{\PYZsh{} in the dataset explanation (see https://www.openml.org/d/1472)}
+         \PY{c+c1}{\PYZsh{} Thus, I add some string prefix so it will count as nominal}
+         \PY{c+c1}{\PYZsh{} t\PYZus{}df[\PYZsq{}y2\PYZsq{}] = \PYZsq{}str\PYZsq{} + t\PYZus{}df[\PYZsq{}y2\PYZsq{}].astype(str)}
+         \PY{n}{t\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{t\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{d1\PYZus{}info} \PY{o}{=} \PY{n}{get\PYZus{}attribute\PYZus{}summary}\PY{p}{(}\PY{n}{t\PYZus{}df}\PY{p}{,} \PY{n}{d1\PYZus{}classname}\PY{p}{,} \PY{n}{d1\PYZus{}name}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Summary of Energy Efficiency dataset attributes: 
+Number of features: 9
+Number of instances: 768
+Number of classes: 37
+Number of numerical features: 8
+Number of categorical features: 1
+
+    \end{Verbatim}
+
+    \hypertarget{attribute-summary-for-dataset-2}{%
+\paragraph{Attribute Summary for Dataset
+2}\label{attribute-summary-for-dataset-2}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{d2\PYZus{}classname} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{d2\PYZus{}info} \PY{o}{=} \PY{n}{get\PYZus{}attribute\PYZus{}summary}\PY{p}{(}\PY{n}{i\PYZus{}df}\PY{p}{,} \PY{n}{d2\PYZus{}classname}\PY{p}{,} \PY{n}{d2\PYZus{}name}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Summary of Opt Digits dataset attributes: 
+Number of features: 64
+Number of instances: 5620
+Number of classes: 10
+Number of numerical features: 64
+Number of categorical features: 0
+
+    \end{Verbatim}
+
+    \hypertarget{answer-3.2}{%
+\subsubsection{Answer 3.2}\label{answer-3.2}}
+
+    \hypertarget{convert-categorical-features-in-both-dataset-both-train-and-test}{%
+\paragraph{Convert Categorical Features in Both Dataset, Both Train and
+Test}\label{convert-categorical-features-in-both-dataset-both-train-and-test}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{t\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{t\PYZus{}df}\PY{p}{)}
+         \PY{n}{i\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{i\PYZus{}df}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} print(t\PYZus{}df.shape) \PYZsh{} (768, 47)}
+         \PY{c+c1}{\PYZsh{} print(i\PYZus{}df.shape) \PYZsh{} (5620, 65)}
+\end{Verbatim}
+
+    \hypertarget{split-both-dataset-into-train-and-test}{%
+\paragraph{Split Both Dataset into Train and
+Test}\label{split-both-dataset-into-train-and-test}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         
+         \PY{n}{t\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{t\PYZus{}X\PYZus{}test}\PY{p}{,} \PY{n}{t\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{t\PYZus{}y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{t\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{n}{d1\PYZus{}classname}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{t\PYZus{}df}\PY{p}{[}\PY{n}{d1\PYZus{}classname}\PY{p}{]}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{28}\PY{p}{)}
+         \PY{n}{i\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{i\PYZus{}X\PYZus{}test}\PY{p}{,} \PY{n}{i\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{i\PYZus{}y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{i\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{n}{d2\PYZus{}classname}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{i\PYZus{}df}\PY{p}{[}\PY{n}{d2\PYZus{}classname}\PY{p}{]}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{28}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{generate-10-different-train-sets}{%
+\paragraph{Generate 10 Different Train
+Sets}\label{generate-10-different-train-sets}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k}{def} \PY{n+nf}{generate\PYZus{}ten\PYZus{}subsamples}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{:}
+             \PY{n}{X\PYZus{}train\PYZus{}sets} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{y\PYZus{}train\PYZus{}sets} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{frac} \PY{o}{=} \PY{n}{i} \PY{o}{*} \PY{l+m+mi}{10} \PY{o}{/} \PY{l+m+mi}{100}
+         
+                 \PY{c+c1}{\PYZsh{} Use the same random state so that we get matching X\PYZus{}train and y\PYZus{}train}
+                 \PY{n}{X\PYZus{}train\PYZus{}sets}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n}{frac}\PY{o}{=}\PY{n}{frac}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{28}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{y\PYZus{}train\PYZus{}sets}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n}{frac}\PY{o}{=}\PY{n}{frac}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{28}\PY{p}{)}\PY{p}{)}
+                 
+             \PY{k}{return} \PY{n}{X\PYZus{}train\PYZus{}sets}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}sets}
+         
+         \PY{n}{t\PYZus{}X\PYZus{}train\PYZus{}sets}\PY{p}{,} \PY{n}{t\PYZus{}y\PYZus{}train\PYZus{}sets} \PY{o}{=} \PY{n}{generate\PYZus{}ten\PYZus{}subsamples}\PY{p}{(}\PY{n}{t\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{t\PYZus{}y\PYZus{}train}\PY{p}{)}
+         \PY{n}{i\PYZus{}X\PYZus{}train\PYZus{}sets}\PY{p}{,} \PY{n}{i\PYZus{}y\PYZus{}train\PYZus{}sets} \PY{o}{=} \PY{n}{generate\PYZus{}ten\PYZus{}subsamples}\PY{p}{(}\PY{n}{i\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{i\PYZus{}y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{function-to-train-dataset-using-random-forests-and-gradient-boosting}{%
+\paragraph{Function to Train Dataset using Random Forests and Gradient
+Boosting}\label{function-to-train-dataset-using-random-forests-and-gradient-boosting}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}\PY{p}{,} \PY{n}{GradientBoostingClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{datetime}\PY{p}{,} \PY{n}{timedelta}
+         
+         \PY{k}{def} \PY{n+nf}{run\PYZus{}train\PYZus{}scenario}\PY{p}{(}\PY{n}{dname}\PY{p}{,} \PY{n}{X\PYZus{}train\PYZus{}sets}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}sets}\PY{p}{)}\PY{p}{:}
+             \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+             
+             \PY{n}{rf\PYZus{}models} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{gb\PYZus{}models} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             
+             \PY{n}{rf\PYZus{}training\PYZus{}times} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{gb\PYZus{}training\PYZus{}times} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             
+             \PY{k}{for} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}sets}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}sets}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{rf} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{28}\PY{p}{)}
+                 \PY{n}{gb} \PY{o}{=} \PY{n}{GradientBoostingClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{28}\PY{p}{)}
+             
+                 \PY{n}{start} \PY{o}{=} \PY{n}{datetime}\PY{o}{.}\PY{n}{now}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{rf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+                 \PY{n}{rf\PYZus{}training\PYZus{}times}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{datetime}\PY{o}{.}\PY{n}{now}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{start}\PY{p}{)}\PY{o}{.}\PY{n}{total\PYZus{}seconds}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{rf\PYZus{}models}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{rf}\PY{p}{)}
+                 
+                 \PY{n}{start} \PY{o}{=} \PY{n}{datetime}\PY{o}{.}\PY{n}{now}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{gb}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+                 \PY{n}{gb\PYZus{}training\PYZus{}times}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{datetime}\PY{o}{.}\PY{n}{now}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{start}\PY{p}{)}\PY{o}{.}\PY{n}{total\PYZus{}seconds}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{gb\PYZus{}models}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{gb}\PY{p}{)}
+                 
+                 \PY{n}{i} \PY{o}{=} \PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}
+                 \PY{n}{total\PYZus{}time\PYZus{}elapsed} \PY{o}{=} \PY{n}{rf\PYZus{}training\PYZus{}times}\PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{rf\PYZus{}training\PYZus{}times}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{gb\PYZus{}training\PYZus{}times}\PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{gb\PYZus{}training\PYZus{}times}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}         print(\PYZsq{}Finished \PYZob{}\PYZcb{} training for subsample \PYZob{}\PYZcb{}, total time elapsed: \PYZob{}\PYZcb{}\PYZsq{}.format(dname, i, total\PYZus{}time\PYZus{}elapsed))}
+                 
+             \PY{k}{return} \PY{n}{rf\PYZus{}models}\PY{p}{,} \PY{n}{gb\PYZus{}models}\PY{p}{,} \PY{n}{rf\PYZus{}training\PYZus{}times}\PY{p}{,} \PY{n}{gb\PYZus{}training\PYZus{}times}
+\end{Verbatim}
+
+    \hypertarget{run-training-on-dataset-1}{%
+\paragraph{Run Training on Dataset 1}\label{run-training-on-dataset-1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{t\PYZus{}rf\PYZus{}models}\PY{p}{,} \PY{n}{t\PYZus{}gb\PYZus{}models}\PY{p}{,} \PY{n}{t\PYZus{}rf\PYZus{}training\PYZus{}times}\PY{p}{,} \PY{n}{t\PYZus{}gb\PYZus{}training\PYZus{}times} \PY{o}{=} \PY{n}{run\PYZus{}train\PYZus{}scenario}\PY{p}{(}\PY{n}{d1\PYZus{}name}\PY{p}{,} \PY{n}{t\PYZus{}X\PYZus{}train\PYZus{}sets}\PY{p}{,} \PY{n}{t\PYZus{}y\PYZus{}train\PYZus{}sets}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{run-training-with-dataset-2}{%
+\paragraph{Run Training with Dataset
+2}\label{run-training-with-dataset-2}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{i\PYZus{}rf\PYZus{}models}\PY{p}{,} \PY{n}{i\PYZus{}gb\PYZus{}models}\PY{p}{,} \PY{n}{i\PYZus{}rf\PYZus{}training\PYZus{}times}\PY{p}{,} \PY{n}{i\PYZus{}gb\PYZus{}training\PYZus{}times} \PY{o}{=} \PY{n}{run\PYZus{}train\PYZus{}scenario}\PY{p}{(}\PY{n}{d2\PYZus{}name}\PY{p}{,} \PY{n}{i\PYZus{}X\PYZus{}train\PYZus{}sets}\PY{p}{,} \PY{n}{i\PYZus{}y\PYZus{}train\PYZus{}sets}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{create-function-to-compute-accuracies-on-test-set}{%
+\paragraph{Create function to Compute Accuracies on Test
+Set}\label{create-function-to-compute-accuracies-on-test-set}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}
+         
+         \PY{k}{def} \PY{n+nf}{calculate\PYZus{}test\PYZus{}accuracies}\PY{p}{(}\PY{n}{clf\PYZus{}list}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{:}
+             \PY{n}{accuracies} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             
+             \PY{k}{for} \PY{n}{clf} \PY{o+ow}{in} \PY{n}{clf\PYZus{}list}\PY{p}{:}
+                 \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+                 \PY{n}{accuracies}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+                 
+             \PY{k}{return} \PY{n}{accuracies}
+\end{Verbatim}
+
+    \hypertarget{compute-test-accuracies-on-dataset-1}{%
+\paragraph{Compute Test Accuracies on Dataset
+1}\label{compute-test-accuracies-on-dataset-1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{t\PYZus{}rf\PYZus{}accuracies} \PY{o}{=} \PY{n}{calculate\PYZus{}test\PYZus{}accuracies}\PY{p}{(}\PY{n}{t\PYZus{}rf\PYZus{}models}\PY{p}{,} \PY{n}{t\PYZus{}X\PYZus{}test}\PY{p}{,} \PY{n}{t\PYZus{}y\PYZus{}test}\PY{p}{)}
+         \PY{n}{t\PYZus{}gb\PYZus{}accuracies} \PY{o}{=} \PY{n}{calculate\PYZus{}test\PYZus{}accuracies}\PY{p}{(}\PY{n}{t\PYZus{}gb\PYZus{}models}\PY{p}{,} \PY{n}{t\PYZus{}X\PYZus{}test}\PY{p}{,} \PY{n}{t\PYZus{}y\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{compute-test-accuracy-on-dataset-2}{%
+\paragraph{Compute Test Accuracy on Dataset
+2}\label{compute-test-accuracy-on-dataset-2}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{i\PYZus{}rf\PYZus{}accuracies} \PY{o}{=} \PY{n}{calculate\PYZus{}test\PYZus{}accuracies}\PY{p}{(}\PY{n}{i\PYZus{}rf\PYZus{}models}\PY{p}{,} \PY{n}{i\PYZus{}X\PYZus{}test}\PY{p}{,} \PY{n}{i\PYZus{}y\PYZus{}test}\PY{p}{)}
+         \PY{n}{i\PYZus{}gb\PYZus{}accuracies} \PY{o}{=} \PY{n}{calculate\PYZus{}test\PYZus{}accuracies}\PY{p}{(}\PY{n}{i\PYZus{}gb\PYZus{}models}\PY{p}{,} \PY{n}{i\PYZus{}X\PYZus{}test}\PY{p}{,} \PY{n}{i\PYZus{}y\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{plot-test-accuracies-and-training-times-for-dataset-1}{%
+\paragraph{Plot Test Accuracies and Training Times for Dataset
+1}\label{plot-test-accuracies-and-training-times-for-dataset-1}}
+
+    \hypertarget{test-accuracies}{%
+\paragraph{Test Accuracies}\label{test-accuracies}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{x\PYZus{}plots} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{110}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{y\PYZus{}plots} \PY{o}{=} \PY{n}{t\PYZus{}rf\PYZus{}accuracies}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}plots}\PY{p}{,} \PY{n}{y\PYZus{}plots}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Random Forests}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{x\PYZus{}plots} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{110}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{y\PYZus{}plots} \PY{o}{=} \PY{n}{t\PYZus{}gb\PYZus{}accuracies}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}plots}\PY{p}{,} \PY{n}{y\PYZus{}plots}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gradient Boosting}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training Data Size (in }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}     
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}     
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Accuracies Plot for }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{d1\PYZus{}name} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ Dataset}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_70_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{training-times}{%
+\paragraph{Training Times}\label{training-times}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{x\PYZus{}plots} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{110}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{y\PYZus{}plots} \PY{o}{=} \PY{n}{t\PYZus{}rf\PYZus{}training\PYZus{}times}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}plots}\PY{p}{,} \PY{n}{y\PYZus{}plots}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Random Forests}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{x\PYZus{}plots} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{110}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{y\PYZus{}plots} \PY{o}{=} \PY{n}{t\PYZus{}gb\PYZus{}training\PYZus{}times}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}plots}\PY{p}{,} \PY{n}{y\PYZus{}plots}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gradient Boosting}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training Data Size (in }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}     
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training Time (in seconds)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}     
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training Time Plot for }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{d1\PYZus{}name} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ Dataset}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_72_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{plot-test-accuracies-and-training-times-for-dataset-2}{%
+\paragraph{Plot Test Accuracies and Training Times for Dataset
+2}\label{plot-test-accuracies-and-training-times-for-dataset-2}}
+
+    \hypertarget{test-accuracies}{%
+\paragraph{Test Accuracies}\label{test-accuracies}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{x\PYZus{}plots} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{110}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{y\PYZus{}plots} \PY{o}{=} \PY{n}{i\PYZus{}rf\PYZus{}accuracies}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}plots}\PY{p}{,} \PY{n}{y\PYZus{}plots}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Random Forests}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{x\PYZus{}plots} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{110}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{y\PYZus{}plots} \PY{o}{=} \PY{n}{i\PYZus{}gb\PYZus{}accuracies}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}plots}\PY{p}{,} \PY{n}{y\PYZus{}plots}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gradient Boosting}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training Data Size (in }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}     
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}     
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Accuracies Plot for }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{d2\PYZus{}name} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ Dataset}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_75_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{training-times}{%
+\paragraph{Training Times}\label{training-times}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{x\PYZus{}plots} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{110}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{y\PYZus{}plots} \PY{o}{=} \PY{n}{i\PYZus{}rf\PYZus{}training\PYZus{}times}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}plots}\PY{p}{,} \PY{n}{y\PYZus{}plots}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Random Forests}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{x\PYZus{}plots} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{110}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{y\PYZus{}plots} \PY{o}{=} \PY{n}{i\PYZus{}gb\PYZus{}training\PYZus{}times}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}plots}\PY{p}{,} \PY{n}{y\PYZus{}plots}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gradient Boosting}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training Data Size (in }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}     
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training Time (in seconds)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}     
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training Time Plot for }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{d2\PYZus{}name} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ Dataset}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_77_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{answer-3.3}{%
+\subsubsection{Answer 3.3}\label{answer-3.3}}
+
+    For context, I'm limiting the n\_estimators to 20 and max\_depth to 3
+for both algorithm (Random Forests and Gradient Boosting).
+
+There are three main observations that I find:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  For both dataset, the training time of Random Forests is constant, it
+  is not affected by the training data size. Meanwhile, the training
+  time for Gradient Boosting grows linearly with the increase in
+  training data size.
+\item
+  For dataset with many features (64 features for Opt Digits, Dataset
+  2), Random Forests doesn't do well, i.e.~the increase in training size
+  doesn't boost performance on test set. For dataset with small features
+  (9 features for ), Random Forests are still quite on par with Gradient
+  Boosting (accuracy doesn't differ significantly).
+\item
+  Gradient Boosting, while being limited to small max\_depth and
+  n\_estimators, still performs well on both dataset, meaning it is
+  robust to significant increase in features.
+\end{enumerate}
+
+Thus, in general, Gradient Boosting wins performance wise, i.e.~it gives
+better accuracy, meanwhile Random Forest wins speed wise, i.e.~it has
+shorter training time.
+
+    \hypertarget{problem-4}{%
+\subsection{Problem 4}\label{problem-4}}
+
+    \hypertarget{answer-4.1}{%
+\subsubsection{Answer 4.1}\label{answer-4.1}}
+
+Question 1 
+$$$$
+Does true negative matter for both ROC and PR curve? 
+$$$$
+Answer
+$$$$ 
+True Negative (TN) matters for ROC curve, but not for PR curve.
+True Negative matters for ROC curve because its x-axis is FPR (False
+Positive Rate). We know that FPR is obtained as below:
+
+$$FPR = \frac{FP}{N} = \frac{FP}{FP + TN}$$
+
+We can see that TN is involved in the formula, thus TN matters for PR
+curve. 
+$$$$
+
+Question 2
+$$$$
+Argue why each point on ROC curve corresponds to a unique point on PR curve?
+$$$$
+Answer 
+$$$$
+Let's limit the scope for binary classification. Recall the concept that a point on ROC curve defines a certain, unique, confusion matrix given that the dataset is fixed, i.e. we know how many positive and negative examples are there in the dataset.
+$$$$ 
+In PR curve, TN is not used, so each point in PR curve might lead
+to some different confusion matrices. But, if the dataset is fixed, and
+we know the other three statistics, which are TP, FP and FN, then TN is
+unique. If TN is unique, then it is proved that each point on ROC curve
+corresponds to a unique point on PR. One additional condition would be
+that the Recall of the model should be greater than zero, otherwise we
+couldn't compute FP and consequently, TN is not unique.
+
+    \hypertarget{answer-4.2}{%
+\subsubsection{Answer 4.2}\label{answer-4.2}}
+
+    \hypertarget{load-dataset}{%
+\paragraph{Load Dataset}\label{load-dataset}}
+
+    I use wdbc dataset (https://www.openml.org/d/1510)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{d4\PYZus{}path} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/wdbc.csv}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{d4\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WDBC}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{d4\PYZus{}classname} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Class}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{n}{df4} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{d4\PYZus{}path}\PY{p}{)}
+         \PY{n}{df4}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:}       V1     V2      V3      V4       V5       V6      V7       V8      V9  \textbackslash{}
+         0  17.99  10.38  122.80  1001.0  0.11840  0.27760  0.3001  0.14710  0.2419   
+         1  20.57  17.77  132.90  1326.0  0.08474  0.07864  0.0869  0.07017  0.1812   
+         2  19.69  21.25  130.00  1203.0  0.10960  0.15990  0.1974  0.12790  0.2069   
+         3  11.42  20.38   77.58   386.1  0.14250  0.28390  0.2414  0.10520  0.2597   
+         4  20.29  14.34  135.10  1297.0  0.10030  0.13280  0.1980  0.10430  0.1809   
+         
+                V10  {\ldots}    V22     V23     V24     V25     V26     V27     V28  \textbackslash{}
+         0  0.07871  {\ldots}  17.33  184.60  2019.0  0.1622  0.6656  0.7119  0.2654   
+         1  0.05667  {\ldots}  23.41  158.80  1956.0  0.1238  0.1866  0.2416  0.1860   
+         2  0.05999  {\ldots}  25.53  152.50  1709.0  0.1444  0.4245  0.4504  0.2430   
+         3  0.09744  {\ldots}  26.50   98.87   567.7  0.2098  0.8663  0.6869  0.2575   
+         4  0.05883  {\ldots}  16.67  152.20  1575.0  0.1374  0.2050  0.4000  0.1625   
+         
+               V29      V30  Class  
+         0  0.4601  0.11890      2  
+         1  0.2750  0.08902      2  
+         2  0.3613  0.08758      2  
+         3  0.6638  0.17300      2  
+         4  0.2364  0.07678      2  
+         
+         [5 rows x 31 columns]
+\end{Verbatim}
+            
+    \hypertarget{attribute-summary}{%
+\paragraph{Attribute Summary}\label{attribute-summary}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{get\PYZus{}attribute\PYZus{}summary}\PY{p}{(}\PY{n}{df4}\PY{p}{,} \PY{n}{d4\PYZus{}classname}\PY{p}{,} \PY{n}{d4\PYZus{}name}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Summary of WDBC dataset attributes: 
+Number of features: 30
+Number of instances: 569
+Number of classes: 2
+Number of numerical features: 30
+Number of categorical features: 0
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} \{'categorical\_indexes': [],
+          'num\_categorical\_features': 0,
+          'num\_classes': 2,
+          'num\_features': 30,
+          'num\_instances': 569,
+          'num\_numerical\_features': 30\}
+\end{Verbatim}
+            
+    \hypertarget{class-distribution}{%
+\paragraph{Class Distribution}\label{class-distribution}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{df4}\PY{p}{[}\PY{n}{d4\PYZus{}classname}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} 1    357
+         2    212
+         Name: Class, dtype: int64
+\end{Verbatim}
+            
+    \hypertarget{preprocessing}{%
+\paragraph{Preprocessing}\label{preprocessing}}
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Change label from \{1, 2\} to \{1, 0\}. Notice that I do this because
+  Class 1 has more instances, so I assume it's the positive one.
+\item
+  Train Test Split
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{df4}\PY{p}{[}\PY{n}{d4\PYZus{}classname}\PY{p}{]} \PY{o}{=} \PY{n}{df4}\PY{p}{[}\PY{n}{d4\PYZus{}classname}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df4}\PY{p}{[}\PY{n}{d4\PYZus{}classname}\PY{p}{]} \PY{o}{=} \PY{n}{df4}\PY{p}{[}\PY{n}{d4\PYZus{}classname}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{df4}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{n}{d4\PYZus{}classname}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{df4}\PY{p}{[}\PY{n}{d4\PYZus{}classname}\PY{p}{]}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{28}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{class-distribution-in-train-and-test}{%
+\paragraph{Class Distribution in Train and
+Test}\label{class-distribution-in-train-and-test}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1    284
+0    171
+Name: Class, dtype: int64
+1    73
+0    41
+Name: Class, dtype: int64
+
+    \end{Verbatim}
+
+    \hypertarget{train-on-both-classifiers}{%
+\paragraph{Train on Both Classifiers}\label{train-on-both-classifiers}}
+
+    I limit the n\_estimators to 3 for Adaboost and max\_iter to 20 for
+Logistic Regression.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{AdaBoostClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+         
+         \PY{n}{a\PYZus{}clf} \PY{o}{=} \PY{n}{AdaBoostClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{28}\PY{p}{)}
+         \PY{n}{a\PYZus{}clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{n}{l\PYZus{}clf} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{28}\PY{p}{)}
+         \PY{n}{l\PYZus{}clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} LogisticRegression(C=1.0, class\_weight=None, dual=False, fit\_intercept=True,
+                            intercept\_scaling=1, l1\_ratio=None, max\_iter=20,
+                            multi\_class='auto', n\_jobs=None, penalty='l2',
+                            random\_state=28, solver='lbfgs', tol=0.0001, verbose=0,
+                            warm\_start=False)
+\end{Verbatim}
+            
+    \hypertarget{get-prediction-and-its-probabilities-only-for-positivemajority-class}{%
+\paragraph{Get Prediction and Its Probabilities (Only for
+Positive/Majority
+Class)}\label{get-prediction-and-its-probabilities-only-for-positivemajority-class}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{a\PYZus{}pred\PYZus{}probs} \PY{o}{=} \PY{n}{a\PYZus{}clf}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)} \PY{c+c1}{\PYZsh{}192, 2}
+         \PY{n}{l\PYZus{}pred\PYZus{}probs} \PY{o}{=} \PY{n}{l\PYZus{}clf}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)} \PY{c+c1}{\PYZsh{}192, 2}
+         
+         \PY{n}{a\PYZus{}pos\PYZus{}probs} \PY{o}{=} \PY{n}{a\PYZus{}pred\PYZus{}probs}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{l\PYZus{}pos\PYZus{}probs} \PY{o}{=} \PY{n}{l\PYZus{}pred\PYZus{}probs}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{n}{a\PYZus{}y\PYZus{}preds} \PY{o}{=} \PY{n}{a\PYZus{}clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n}{l\PYZus{}y\PYZus{}preds} \PY{o}{=} \PY{n}{l\PYZus{}clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} An all positive classifier, always predicts 1}
+         \PY{n}{ap\PYZus{}pos\PYZus{}probs} \PY{o}{=} \PY{p}{[}\PY{n+nb}{float}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{)} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         \PY{n}{ap\PYZus{}y\PYZus{}preds} \PY{o}{=} \PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+    \hypertarget{roc-curves}{%
+\paragraph{ROC Curves}\label{roc-curves}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{roc\PYZus{}curve}
+         
+         \PY{n}{ap\PYZus{}fp\PYZus{}rate}\PY{p}{,} \PY{n}{ap\PYZus{}tp\PYZus{}rate}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{roc\PYZus{}curve}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{ap\PYZus{}pos\PYZus{}probs}\PY{p}{)}
+         \PY{n}{a\PYZus{}fp\PYZus{}rate}\PY{p}{,} \PY{n}{a\PYZus{}tp\PYZus{}rate}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{roc\PYZus{}curve}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{a\PYZus{}pos\PYZus{}probs}\PY{p}{)}
+         \PY{n}{l\PYZus{}fp\PYZus{}rate}\PY{p}{,} \PY{n}{l\PYZus{}tp\PYZus{}rate}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{roc\PYZus{}curve}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{l\PYZus{}pos\PYZus{}probs}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{x\PYZus{}plots} \PY{o}{=} \PY{n}{ap\PYZus{}fp\PYZus{}rate}
+         \PY{n}{y\PYZus{}plots} \PY{o}{=} \PY{n}{ap\PYZus{}tp\PYZus{}rate}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}plots}\PY{p}{,} \PY{n}{y\PYZus{}plots}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{All Positive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dashed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{x\PYZus{}plots} \PY{o}{=} \PY{n}{l\PYZus{}fp\PYZus{}rate}
+         \PY{n}{y\PYZus{}plots} \PY{o}{=} \PY{n}{l\PYZus{}tp\PYZus{}rate}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}plots}\PY{p}{,} \PY{n}{y\PYZus{}plots}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Logistic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{x\PYZus{}plots} \PY{o}{=} \PY{n}{a\PYZus{}fp\PYZus{}rate}
+         \PY{n}{y\PYZus{}plots} \PY{o}{=} \PY{n}{a\PYZus{}tp\PYZus{}rate}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}plots}\PY{p}{,} \PY{n}{y\PYZus{}plots}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adaboost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{x\PYZus{}plots} \PY{o}{=} \PY{n}{l\PYZus{}fp\PYZus{}rate}
+         \PY{n}{y\PYZus{}plots} \PY{o}{=} \PY{n}{l\PYZus{}tp\PYZus{}rate}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}plots}\PY{p}{,} \PY{n}{y\PYZus{}plots}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Logistic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{False Positive Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}     
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True Positive Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}     
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ROC Curve using Adaboost and Logistic Regression for }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{d1\PYZus{}name} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ Dataset}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_102_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{pr-curves}{%
+\paragraph{PR Curves}\label{pr-curves}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{precision\PYZus{}recall\PYZus{}curve}
+         
+         \PY{n}{ap\PYZus{}precision}\PY{p}{,} \PY{n}{ap\PYZus{}recall}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{precision\PYZus{}recall\PYZus{}curve}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{ap\PYZus{}pos\PYZus{}probs}\PY{p}{)} 
+         \PY{n}{a\PYZus{}precision}\PY{p}{,} \PY{n}{a\PYZus{}recall}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{precision\PYZus{}recall\PYZus{}curve}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{a\PYZus{}pos\PYZus{}probs}\PY{p}{)}
+         \PY{n}{l\PYZus{}precision}\PY{p}{,} \PY{n}{l\PYZus{}recall}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{precision\PYZus{}recall\PYZus{}curve}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{l\PYZus{}pos\PYZus{}probs}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{x\PYZus{}plots} \PY{o}{=} \PY{n}{ap\PYZus{}recall}
+         \PY{n}{y\PYZus{}plots} \PY{o}{=} \PY{n}{ap\PYZus{}precision}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}plots}\PY{p}{,} \PY{n}{y\PYZus{}plots}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{All Positive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dashed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{x\PYZus{}plots} \PY{o}{=} \PY{n}{a\PYZus{}recall}
+         \PY{n}{y\PYZus{}plots} \PY{o}{=} \PY{n}{a\PYZus{}precision}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}plots}\PY{p}{,} \PY{n}{y\PYZus{}plots}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adaboost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{x\PYZus{}plots} \PY{o}{=} \PY{n}{l\PYZus{}recall}
+         \PY{n}{y\PYZus{}plots} \PY{o}{=} \PY{n}{l\PYZus{}precision}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}plots}\PY{p}{,} \PY{n}{y\PYZus{}plots}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Logistic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Recall}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}     
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Precision}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}     
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Precision Recall Curve using Adaboost and Logistic Regression for }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{d1\PYZus{}name} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ Dataset}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_104_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{answer-4.3}{%
+\subsubsection{Answer 4.3}\label{answer-4.3}}
+
+    \hypertarget{calculate-auroc}{%
+\paragraph{Calculate AUROC}\label{calculate-auroc}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{roc\PYZus{}auc\PYZus{}score}
+         
+         \PY{n}{a\PYZus{}auroc} \PY{o}{=} \PY{n}{roc\PYZus{}auc\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{a\PYZus{}pos\PYZus{}probs}\PY{p}{)}
+         \PY{n}{l\PYZus{}auroc} \PY{o}{=} \PY{n}{roc\PYZus{}auc\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{l\PYZus{}pos\PYZus{}probs}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AUROC value for Adaboost: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{a\PYZus{}auroc}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AUROC value for Logistic Regression: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{l\PYZus{}auroc}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+AUROC value for Adaboost: 0.9343468092215168
+AUROC value for Logistic Regression: 0.9565653190778483
+
+    \end{Verbatim}
+
+    AUROC value for Logistice Regression is slightly greater than that of
+Adaboost, with \textasciitilde0.02 difference.
+
+    \hypertarget{calculate-aupr}{%
+\paragraph{Calculate AUPR}\label{calculate-aupr}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{average\PYZus{}precision\PYZus{}score}
+         
+         \PY{n}{a\PYZus{}aupr} \PY{o}{=} \PY{n}{average\PYZus{}precision\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{a\PYZus{}pos\PYZus{}probs}\PY{p}{)}
+         \PY{n}{l\PYZus{}aupr} \PY{o}{=} \PY{n}{average\PYZus{}precision\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{l\PYZus{}pos\PYZus{}probs}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AUPR value for Adaboost: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{a\PYZus{}aupr}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AUPR value for Logistic Regression: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{l\PYZus{}aupr}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+AUPR value for Adaboost: 0.9434076960517591
+AUPR value for Logistic Regression: 0.9683464053796522
+
+    \end{Verbatim}
+
+    AUPR value for Logistice Regression is slightly greater than that of
+Adaboost, with \textasciitilde0.025 difference.
+
+    For AUPRG, I'm going to use \texttt{prg} package
+(https://github.com/meeliskull/prg)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{o}{!}pip install pyprg
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Requirement already satisfied: pyprg in /Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages (0.1.1b7)
+Requirement already satisfied: matplotlib in /Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages (from pyprg) (3.0.3)
+Requirement already satisfied: numpy in /Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages (from pyprg) (1.15.1)
+Requirement already satisfied: python-dateutil>=2.1 in /Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages (from matplotlib->pyprg) (2.7.3)
+Requirement already satisfied: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,>=2.0.1 in /Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages (from matplotlib->pyprg) (2.3.1)
+Requirement already satisfied: kiwisolver>=1.0.1 in /Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages (from matplotlib->pyprg) (1.0.1)
+Requirement already satisfied: cycler>=0.10 in /Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages (from matplotlib->pyprg) (0.10.0)
+Requirement already satisfied: six>=1.5 in /Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages (from python-dateutil>=2.1->matplotlib->pyprg) (1.12.0)
+Requirement already satisfied: setuptools in /Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages (from kiwisolver>=1.0.1->matplotlib->pyprg) (41.2.0)
+
+    \end{Verbatim}
+
+    \hypertarget{calculate-auprg}{%
+\paragraph{Calculate AUPRG}\label{calculate-auprg}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{k+kn}{from} \PY{n+nn}{prg}\PY{n+nn}{.}\PY{n+nn}{prg} \PY{k}{import} \PY{n}{create\PYZus{}prg\PYZus{}curve}\PY{p}{,} \PY{n}{calc\PYZus{}auprg}
+         
+         \PY{n}{a\PYZus{}prg\PYZus{}curve} \PY{o}{=} \PY{n}{create\PYZus{}prg\PYZus{}curve}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{a\PYZus{}pos\PYZus{}probs}\PY{p}{)}
+         \PY{n}{l\PYZus{}prg\PYZus{}curve} \PY{o}{=} \PY{n}{create\PYZus{}prg\PYZus{}curve}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{l\PYZus{}pos\PYZus{}probs}\PY{p}{)}
+         
+         \PY{n}{a\PYZus{}auprg} \PY{o}{=} \PY{n}{calc\PYZus{}auprg}\PY{p}{(}\PY{n}{a\PYZus{}prg\PYZus{}curve}\PY{p}{)}
+         \PY{n}{l\PYZus{}auprg} \PY{o}{=} \PY{n}{calc\PYZus{}auprg}\PY{p}{(}\PY{n}{l\PYZus{}prg\PYZus{}curve}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AUPRG value for Adaboost: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{a\PYZus{}auprg}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AUPRG value for Logistic Regression: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{l\PYZus{}auprg}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+AUPRG value for Adaboost: 0.8812399596400051
+AUPRG value for Logistic Regression: 0.8926037279876874
+
+    \end{Verbatim}
+
+    AUROC value for Logistice Regression is slightly greater than that of
+Adaboost, with \textasciitilde0.01 difference.
+$$$$
+Question
+$$$$
+Do you agree with the conclusion of
+NIPS paper that practitioners should use PR gain curves rather than PR curves?
+$$$$
+Answer
+$$$$
+Yes, I agree with the author. There are several reasons:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  The author experimentally proves that the conventional AUPR is not
+  accurate in measuring the expected F1 score, i.e.~it can favor models
+  with lower expected F1 score amongst other models.
+\item
+  AUPRG is an easier metric to calculate, compared to AUPR, due to
+  linear interpolation.
+\item
+  Traditional PR curves don't have some properties that are desirable
+  (like that of ROC). One example would be that the PR curve has some
+  uninterpretable areas. AUPR is not meaningful because it's merely a
+  geometric expected precision when uniformly varying the recall. Also,
+  as we could see in 4.2, PR curve has unreachable region at the lower
+  RHS (right hand side) of the plot, which area depends on the class
+  distribution.
+\end{enumerate}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
