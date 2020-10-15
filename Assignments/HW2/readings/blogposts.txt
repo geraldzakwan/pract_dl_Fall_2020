@@ -1,3 +1,4 @@
 https://intoli.com/blog/neural-network-initialization/
 https://towardsdatascience.com/hyper-parameters-in-action-part-ii-weight-initializers-35aee1a28404
 https://keras.io/api/layers/initializers/
+https://www.pyimagesearch.com/2019/08/05/keras-learning-rate-finder/
